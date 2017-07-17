@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DlgFailSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ui="lxl.ui.*" xmlns:w="http://ns.egret.com/wing" width="1136" height="640">
+	<e:Group left="0" right="0" top="0" bottom="0">
+		<e:Image source="img_shiBaiBeiJing_png" left="0" right="0" top="0" bottom="0" x="-4" y="1" scaleX="1" scaleY="1"/>
+		<ui:CButton id="btn_huyan" label="" skinName="ButtonHuyanSkin" anchorOffsetY="0" top="2" horizontalCenter="0" x="493" y="3" scaleX="1" scaleY="1"/>
+		<ui:CButton id="btn_zhishi" label="" anchorOffsetY="0" skinName="ButtonZhishiSkin" right="94" top="20" x="987" y="21" scaleX="1" scaleY="1"/>
+		<ui:CButton id="btn_help" label="" anchorOffsetY="0" skinName="ButtonHelpSkin" right="26" top="20" x="1055" y="21" scaleX="1" scaleY="1"/>
+	</e:Group>
+	<e:Group scaleX="1" scaleY="1" verticalCenter="0" horizontalCenter="0">
+		<e:Image horizontalCenter="0" verticalCenter="0" source="img_guoGuanTanKuang_png"/>
+		<ui:CButton id="btn_jixu" label="" horizontalCenter="0.5" bottom="34" anchorOffsetY="0" height="67" skinName="ButtonResetSkin"/>
+		<e:Image source="img_lose_png" x="34" y="24"/>
+		<e:Image source="img_jiaYou_png" x="140" y="171"/>
+	</e:Group>
+</e:Skin>

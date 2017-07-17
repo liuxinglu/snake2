@@ -3,6 +3,7 @@ module app {
 		public constructor() {
 			this.dataHandler = new DataHandler();
 			lxl.CDispatcher.getInstance().addListener(lxl.CEvent.GET_MESSAGE_FROM_SERVER, this.getMessageHandler, this);
+			lxl.logs.log("manager中监听完成");
 		}
 
 		static CHANGE_LIFE:string = "SNAKEMANAGER::CHANGE_LIFE";//生命值改变
@@ -53,6 +54,7 @@ module app {
 		}
 
 		private getMessageHandler(e:lxl.CEvent) {
+			lxl.logs.log("e:" + e.param.toString());
 			let info = lxl.Tool.callJS("getInfoToken");
 			if(info._userRole == "COORDINATOR") {
 				for(let i = 0; i < this.studentsList.length; i++) {
@@ -65,7 +67,13 @@ module app {
 						lxl.CDispatcher.getInstance().dispatch(new lxl.CEvent(lxl.CEvent.GET_MESSAGE));
 					}
 				}
+				if(this.studentsList.length == 0) {
+					this.studentsList.push(e.param);
+					lxl.CDispatcher.getInstance().dispatch(new lxl.CEvent(lxl.CEvent.GET_MESSAGE));
+				}
 			} else {
+				lxl.logs.log("type:--------" + e.param.type);
+				lxl.logs.log(this.readOnly.toString());
 				if(e.param.type == "show") {
 					if(this.readOnly == false) {
 						this.readOnly = true;
@@ -77,7 +85,6 @@ module app {
 						this.readOnly = false;
 						lxl.CDispatcher.getInstance().dispatch(new lxl.CEvent(lxl.CEvent.READONLY_CHANGE));
 					}
-					lxl.CDispatcher.getInstance().dispatch(new lxl.CEvent(lxl.CEvent.READONLY_CHANGE));
 				}
 			}
 			

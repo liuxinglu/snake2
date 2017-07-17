@@ -45,17 +45,23 @@ module app {
 				}
 			}
 			if(this._curSelStudent) {
+				for(let i = 0; i < Snake.studentsList.length; i++) {
+					if(Snake.studentsList[i].token == this._curSelStudent.token) {
+						this._curSelStudent = Snake.studentsList[i];
+						break;
+					}
+				}
 				this._updateTeacherView(this._curSelStudent, "cur");
 			}
 		}
 
 		private _clickItemHandler(e:egret.TouchEvent) {
-			this._curSelStudent = e.target.data;
+			this._curSelStudent = e.currentTarget.data;
 			this._updateTeacherView(this._curSelStudent, "new");
 		}
 
 		private _updateTeacherView(vd:ViewData, state:string) {
-			this.createSnakeOrMove(vd.gridSnake);
+			this.createSnakeOrMove(vd.gridSnake, vd.snakeDir);
 			if(state == "new")
 				this.createTargets(vd.gridMap, true);
 			else if(state == "cur") {
@@ -63,7 +69,7 @@ module app {
 			}
 		}
 
-		private createSnakeOrMove(arr:Array<GridSnake>) {
+		private createSnakeOrMove(arr:Array<GridSnake>, dir:string) {
 			if(this.arrSnakeParts.length != arr.length) {
 				for(let i = 0; i < this.arrSnakeParts.length; i++) {
 					this.g.removeChild(this.arrSnakeParts[i]);
@@ -74,6 +80,14 @@ module app {
 					part.x = Snake.teacherAreaX + Math.floor(lxl.Config.GRID_SIZE * arr[i].loc_x * Snake.scaleGrid);
 					part.y = Snake.teacherAreaY + Math.floor(arr[i].loc_y * lxl.Config.GRID_SIZE * Snake.scaleGrid);
 					this.arrSnakeParts.push(part);
+				}
+				for(var i = 0; i < this.arrSnakeParts.length; i++) {
+					if(i == this.arrSnakeParts.length - 1) {
+						this.arrSnakeParts[i].imgSource = "img_chongTou_png";
+						this.arrSnakeParts[i].partRotation = dir;
+					} else {
+						this.arrSnakeParts[i].imgSource = "img_chongShenTi_png";
+					}
 				}
 				for(let i = 0; i < this.arrSnakeParts.length; i++) {
 					this.g.addChild(this.arrSnakeParts[i]);
@@ -95,8 +109,8 @@ module app {
 				this.arrTargets = [];
 				for(let i = 0; i < arr.length; i++) {
 					let target:SnakeTarget = Snake.createTarget();
-					target.x = arr[i].loc_x * Snake.scaleGrid * lxl.Config.GRID_SIZE;
-					target.y = arr[i].loc_y * Snake.scaleGrid * lxl.Config.GRID_SIZE;
+					target.x = Snake.teacherAreaX + arr[i].loc_x * Snake.scaleGrid * lxl.Config.GRID_SIZE;
+					target.y = Snake.teacherAreaY + arr[i].loc_y * Snake.scaleGrid * lxl.Config.GRID_SIZE;
 					target.setTarget(arr[i].value, Snake.areaW, Snake.areaH);
 					target.vd = arr[i];
 					this.arrTargets.push(target);

@@ -19,9 +19,8 @@ module app {
 			this.btn_yanshi.addEventListener(lxl.CEvent.CLICK, this._yanshiHandler, this);
 			let info = lxl.Tool.callJS("getInfoToken");
 			if(info._userRole == "COORDINATOR") {
-				let vd:ViewData = new ViewData();
-				vd.type = "show";
-				Snake.dataHandler.sendMessageToServer(vd);
+				Snake.viewData.type = "showFrist";
+				Snake.dataHandler.sendMessageToServer(Snake.viewData);
 			}
 		}
 

@@ -33,6 +33,9 @@ module app {
 		gridMap:Array<GridMap> = [];
 		gridSnake:Array<GridSnake> = [];
 		life:number = 0;
+		trueTarget:string = "";
+		curString:string = "";
+		snakeDir:string = "";
 
 		dispose() {
 			this.gridMap = [];
@@ -42,6 +45,9 @@ module app {
 			this.userName = "";
 			this.completeNum = 0;
 			this.totalNum = 0;
+			this.trueTarget = "";
+			this.curString = "";
+			this.snakeDir = "";
 		}
 	}
 }

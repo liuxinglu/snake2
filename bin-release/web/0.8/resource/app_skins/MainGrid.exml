@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="MainGrid" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:ui="lxl.ui.*" xmlns:w="http://ns.egret.com/wing" xmlns:app="app.*">
+	<e:Group id="group" left="0" right="0" top="0" bottom="0" anchorOffsetY="0">
+		<e:Image source="bg_caoDi_jpg" top="0" bottom="0" left="0" right="0"/>
+		<e:Image horizontalCenter="271" top="7" source="img_xinDiCeng_png"/>
+		<e:Image horizontalCenter="0" verticalCenter="-1" anchorOffsetX="0" anchorOffsetY="0" source="img_geZi_png" visible="false"/>
+		<ui:CButton id="btn_help" label="" anchorOffsetX="0" anchorOffsetY="0" skinName="ButtonHelpSkin" top="20" right="26"/>
+		<ui:CButton id="btn_knowledge" label="" anchorOffsetX="0" anchorOffsetY="0" skinName="ButtonZhishiSkin" right="94" top="20"/>
+		<ui:CButton id="btn_huyan" label="" anchorOffsetY="0" skinName="ButtonHuyanSkin" top="2" horizontalCenter="0"/>
+		<e:Image id="img_1" source="img_xin1_png" top="17" horizontalCenter="196"/>
+		<e:Image id="img_2" source="img_xin2_png" top="11" horizontalCenter="272"/>
+		<e:Image id="img_3" source="img_xin3_png" top="19" horizontalCenter="348.5"/>
+		<ui:CButton id="btn_home" label="" skinName="ButtonHomeSkin" bottom="43" left="33"/>
+		<e:Label id="lab_target" text="" anchorOffsetX="0" width="141.33" textAlign="center" verticalAlign="middle" left="5" verticalCenter="-95"/>
+		<e:Label id="lab_value" text="" width="141.33" anchorOffsetX="70" textAlign="center" verticalAlign="middle" left="5" verticalCenter="-49"/>
+		<ui:CButton id="btn_jian" label="监视" left="19" bottom="154"/>
+		
+	</e:Group>
+	<e:Group width="250" height="250" right="14" bottom="31">
+			<ui:CButton id="btn_left" label="" left="0" verticalCenter="0" enabled="true">
+			<ui:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btn_zuo_png" source.down="btn_zuo_png" source.disabled="btn_zuo_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</ui:skinName>
+			</ui:CButton>
+			<ui:CButton id="btn_right" label="" right="0" verticalCenter="0" enabled="true">
+			<ui:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btn_you_png" source.down="btn_you_png" source.disabled="btn_you_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</ui:skinName>
+			</ui:CButton>
+			<ui:CButton id="btn_down" label="" bottom="0" horizontalCenter="0" enabled="true">
+			<ui:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btn_xia_png" source.down="btn_xia_png" source.disabled="btn_xia_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</ui:skinName>
+			</ui:CButton>
+			<ui:CButton id="btn_up" label="" top="0" horizontalCenter="0" enabled="true">
+			<ui:skinName>
+				<e:Skin states="up,down,disabled">
+				<e:Image width="100%" height="100%" source="btn_shang_png" source.down="btn_shang_png" source.disabled="btn_shang_png"/>
+				<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+				</e:Skin>
+			</ui:skinName>
+			</ui:CButton>
+		</e:Group>
+</e:Skin>

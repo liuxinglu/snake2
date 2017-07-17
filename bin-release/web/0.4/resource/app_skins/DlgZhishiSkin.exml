@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="DlgZhishiSkin" xmlns:e="http://ns.egret.com/eui" xmlns:ui="lxl.ui.*" xmlns:w="http://ns.egret.com/wing" width="1136" height="640">
+	<ui:CButton id="btn_huyan" label="" skinName="ButtonHuyanSkin" anchorOffsetY="0" top="2" horizontalCenter="0"/>
+	<e:Group horizontalCenter="0" verticalCenter="0">
+		<e:Image source="img_tanKuangDiCeng_png" y="1" x="0"/>
+		<e:Scroller height="304" y="101" anchorOffsetX="0" anchorOffsetY="0" x="80" width="608">
+			<e:Group anchorOffsetX="0" width="651">
+				<e:Image source="img_zhishiBg_png" anchorOffsetX="0" left="0" right="0" top="0"/>
+			</e:Group>
+		</e:Scroller>
+		<ui:CButton id="btn_close" label="" right="58" top="13" skinName="ButtonCloseSkin"/>
+		<e:Image source="img_zhishi_png" y="27" horizontalCenter="0.5"/>
+	</e:Group>
+</e:Skin>

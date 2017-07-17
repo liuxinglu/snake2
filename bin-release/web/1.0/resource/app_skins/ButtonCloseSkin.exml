@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<e:Skin class="ButtonCloseSkin" states="up,down,disabled" minHeight="48" minWidth="48" currentState="up" xmlns:e="http://ns.egret.com/eui" width="82" height="82">
+    <e:Image alpha.disabled="0.5"
+            
+             anchorOffsetX="0" left="0" right="0" top="0" bottom="0" source="btn_quXiaoTuBiao_png" scale9Grid="0,0,82,82"/>
+    <e:Label id="labelDisplay" top="8" bottom="8" left="8" right="8"
+             size="20"
+             textColor="0xFFFFFF" verticalAlign="middle" textAlign="center"/>
+    <e:Image id="iconDisplay" horizontalCenter="0" verticalCenter="0" source="" source.up="" source.down="" source.disabled=""/>
+</e:Skin>

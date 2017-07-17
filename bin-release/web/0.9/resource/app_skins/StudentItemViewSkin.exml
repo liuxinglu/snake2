@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="StudentItemViewSkin" width="200" height="98" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Label id="lab_name" text="刘胡兰" textColor="0x070606" bold="true" fontFamily="Microsoft YaHei" strokeColor="0x3b495b" stroke="2" horizontalCenter="0" top="8"/>
+	<e:ProgressBar id="progress" width="184" height="20" anchorOffsetX="0" value="4" maximum="10" horizontalCenter="0" bottom="0"/>
+	<e:Label text="进度" left="11" bottom="27" size="20" textColor="0x000000"/>
+</e:Skin>

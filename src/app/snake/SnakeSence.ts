@@ -7,7 +7,7 @@ module app {
 		onActivity():void {
 			super.onActivity();
 			lxl.CDispatcher.getInstance().addListener(lxl.CEvent.CLICK, this.closeMain2, this);
-			lxl.CDispatcher.getInstance().addListener(lxl.CEvent.OPEN, this._openJianHandler, this);
+			// lxl.CDispatcher.getInstance().addListener(lxl.CEvent.OPEN, this._openJianHandler, this);
 			let m:MainSence = new app.MainSence();
 			m.width = this.stage.stageWidth;
 			m.height = this.stage.stageHeight;
@@ -18,7 +18,11 @@ module app {
 		}
 
 		private closeMain2(e:lxl.CEvent) {
-			
+			let info = lxl.Tool.callJS("getInfoToken");
+			if(info._userRole == "COORDINATOR") {
+				Snake.viewData.type = "show";
+				Snake.dataHandler.sendMessageToServer(Snake.viewData);
+			}
 			let main:MainGrid = new app.MainGrid();
 			main.width = this.stage.stageWidth;
 			main.height = this.stage.stageHeight;
@@ -37,9 +41,8 @@ module app {
 			teacherView.name = "teacherView";
 			teacherView.once(lxl.CEvent.LOAD_SKIN_COMPLETE, ()=>{
 				this.addChild(teacherView);
-				let v:ViewData = new ViewData();
-				v.type = "normal";
-				Snake.dataHandler.sendMessageToServer(v);
+				Snake.viewData.type = "normal";
+				Snake.dataHandler.sendMessageToServer(Snake.viewData);
 			}, this);
 		}
 

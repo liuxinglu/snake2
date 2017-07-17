@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SnakePart" width="48" height="48" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="img_part" source="img_chongTou_png" width="48" height="48" anchorOffsetX="24" anchorOffsetY="24" horizontalCenter="0" verticalCenter="0" rotation="0"/>
+	<e:BitmapLabel id="lab_value" horizontalCenter="0" verticalCenter="0" font="num1_fnt" text=""/>
+</e:Skin>

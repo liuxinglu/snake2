@@ -4,10 +4,12 @@ module app {
 		}
 
 		public sendMessageToServer(vd:ViewData) {
-			lxl.Tool.callJS("sendMsg", JSON.stringify(vd));
+			let o:Object = {action:'publicMessage', data:vd};
+			lxl.Tool.callJS("sendMsg", o);
 		}
 
 		public getMessageFromServer(data:any) {
+			lxl.logs.log("getMessageFromServer");
 			lxl.CDispatcher.getInstance().dispatch(new lxl.CEvent(lxl.CEvent.GET_MESSAGE_FROM_SERVER, data))
 		}
 

@@ -57,8 +57,14 @@ module app {
 				this.btn_jian.visible = true;
 				this.startGame();
 			} else {
+				
 				this.btn_jian.visible = false;
 				lxl.CDispatcher.getInstance().addListener(lxl.CEvent.GET_MESSAGE, this._updateData, this);
+				lxl.CDispatcher.getInstance().removeListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
+				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.LEFT, this._dirHandler, this);
+				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.UP, this._dirHandler, this);
+				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.RIGHT, this._dirHandler, this);
+				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.DOWN, this._dirHandler, this);
 			}
 			this.group.touchChildren = !Snake.readOnly;
 			this.group.touchEnabled = !Snake.readOnly;
@@ -101,6 +107,7 @@ module app {
 			if(len != 0)
 				this.startTime();
 			this.lab_target.text = Snake.trueObj.cn.toString();
+			Snake.viewData.trueTarget = Snake.trueObj.cn.toString();
 		}
 
 		private readOnlyChange(e:lxl.CEvent) {
@@ -117,17 +124,25 @@ module app {
 						this.removeChild(this.arrTargets[i]);
 					}
 					this.startGame();
+					lxl.CDispatcher.getInstance().addListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
+					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.LEFT, this._dirHandler, this);
+					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.UP, this._dirHandler, this);
+					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.RIGHT, this._dirHandler, this);
+					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.DOWN, this._dirHandler, this);
 				}
 			}
 		}
 
 		private _updateData(e:lxl.CEvent) {
+			lxl.logs.log("e________" + e.param.gridSnake.length);
 			let vd:ViewData = e.param;
-			this.createSnakeOrMove(vd.gridSnake);
+			this.createSnakeOrMove(vd.gridSnake, vd.snakeDir);
 			this.createTargets(vd.gridMap, true);
+			this.lab_target.text = vd.trueTarget;
+			this.lab_value.text = vd.curString;
 		}
 
-		private createSnakeOrMove(arr:Array<GridSnake>) {
+		private createSnakeOrMove(arr:Array<GridSnake>, dir:string) {
 			if(this.arrSnakeParts.length != arr.length) {
 				for(let i = 0; i < this.arrSnakeParts.length; i++) {
 					this.removeChild(this.arrSnakeParts[i]);
@@ -135,9 +150,17 @@ module app {
 				this.arrSnakeParts = [];
 				for(var i = 0; i < arr.length; i++) {
 					let part:SnakePart = Snake.createPart();
-					part.x = Snake.teacherAreaX + Math.floor(lxl.Config.GRID_SIZE * arr[i].loc_x * Snake.scaleGrid);
-					part.y = Snake.teacherAreaY + Math.floor(arr[i].loc_y * lxl.Config.GRID_SIZE * Snake.scaleGrid);
+					part.x = Snake.areaX + Math.floor(lxl.Config.GRID_SIZE * arr[i].loc_x);
+					part.y = Snake.areaY + Math.floor(arr[i].loc_y * lxl.Config.GRID_SIZE);
 					this.arrSnakeParts.push(part);
+				}
+				for(var i = 0; i < this.arrSnakeParts.length; i++) {
+					if(i == this.arrSnakeParts.length - 1) {
+						this.arrSnakeParts[i].imgSource = "img_chongTou_png";
+						this.arrSnakeParts[i].partRotation = dir;
+					} else {
+						this.arrSnakeParts[i].imgSource = "img_chongShenTi_png";
+					}
 				}
 				for(let i = 0; i < this.arrSnakeParts.length; i++) {
 					this.addChild(this.arrSnakeParts[i]);
@@ -145,8 +168,8 @@ module app {
 
 			} else {
 				for(var i = 0; i < arr.length; i++) {
-					this.arrSnakeParts[i].x = Snake.teacherAreaX + Math.floor(lxl.Config.GRID_SIZE * arr[i].loc_x * Snake.scaleGrid);
-					this.arrSnakeParts[i].y = Snake.teacherAreaY + Math.floor(arr[i].loc_y * lxl.Config.GRID_SIZE * Snake.scaleGrid);
+					this.arrSnakeParts[i].x = Snake.areaX + Math.floor(lxl.Config.GRID_SIZE * arr[i].loc_x);
+					this.arrSnakeParts[i].y = Snake.areaY + Math.floor(arr[i].loc_y * lxl.Config.GRID_SIZE);
 				}
 			}
 		}
@@ -159,8 +182,8 @@ module app {
 				this.arrTargets = [];
 				for(let i = 0; i < arr.length; i++) {
 					let target:SnakeTarget = Snake.createTarget();
-					target.x = arr[i].loc_x * Snake.scaleGrid * lxl.Config.GRID_SIZE;
-					target.y = arr[i].loc_y * Snake.scaleGrid * lxl.Config.GRID_SIZE;
+					target.x = Snake.areaX + arr[i].loc_x * lxl.Config.GRID_SIZE;
+					target.y = Snake.areaY + arr[i].loc_y * lxl.Config.GRID_SIZE;
 					target.setTarget(arr[i].value, Snake.areaW, Snake.areaH);
 					target.vd = arr[i];
 					this.arrTargets.push(target);
@@ -363,6 +386,7 @@ module app {
 				.to( { scaleX: 0.3, scaleY: 0.3, alpha: 0}, 200)
 				.call(()=>{
 					this.lab_value.text += target.value;
+					Snake.viewData.curString = this.lab_value.text;
 					this.removeChild(target);
 				});
 		}
@@ -429,6 +453,7 @@ module app {
 			//蛇身移动
 			if (Snake.arrSnakeParts.length != 0)
 				this.move();
+			Snake.viewData.snakeDir = this.moveDistance;
 			Snake.dataHandler.sendMessageToServer(Snake.viewData);
 		}
 
