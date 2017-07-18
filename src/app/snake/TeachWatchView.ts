@@ -67,6 +67,30 @@ module app {
 			else if(state == "cur") {
 				this.createTargets(vd.gridMap, false);
 			}
+			this.lab_target.text = vd.trueTarget;
+			if(this.img_1 != undefined && (3 - (3 - vd.life) != 3) && vd.life >= 0) {
+				egret.Tween.get(this["img_" + (3 - (3 - vd.life) + 1)])
+					.to( { scaleX: 0.8, scaleY: 0.8}, 200)
+					.to( { scaleX: 1.1, scaleY: 1.1}, 200)
+					.to( { scaleX: 0.7, scaleY: 0.7}, 200)
+					.to( { scaleX: 5, scaleY: 5, alpha: 0}, 100)
+					.call(()=>{
+						for(var i = 0; i < 3; i++) {
+							this["img_" + (i + 1)].visible = false;
+							this["img_" + (i + 1)].alpha = 1;
+							this["img_" + (i + 1)].scaleX = 1;
+							this["img_" + (i + 1)].scaleY = 1;
+						}
+						for(var i = 0; i < vd.life; i++) {
+							this["img_" + (i + 1)].visible = true;
+						}
+					});
+			} else {
+				for(var i = 0; i < 3; i++)
+					this["img_" + (i + 1)].visible = false;
+				for(var i = 0; i < vd.life; i++)
+					this["img_" + (i + 1)].visible = true;
+			}
 		}
 
 		private createSnakeOrMove(arr:Array<GridSnake>, dir:string) {

@@ -80,6 +80,30 @@ module app {
 			
 		}
 
+		dispose() {
+			super.dispose();
+
+			this.btn_up.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+			this.btn_down.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+			this.btn_left.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+			this.btn_right.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+			this.btn_help.removeEventListener(lxl.CEvent.CLICK, this._helpHandler, this);
+			this.btn_knowledge.removeEventListener(lxl.CEvent.CLICK, this._knowledgeHandler, this);
+			if(this._timer) {
+				this._timer.stop();
+				if(this._timer.hasEventListener(egret.TimerEvent.TIMER))
+					this._timer.removeEventListener(egret.TimerEvent.TIMER, this.viewUpdate, this);
+			}
+			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.GET_MESSAGE, this._updateData, this);
+			lxl.CDispatcher.getInstance().removeListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
+			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.LEFT, this._dirHandler, this);
+			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.UP, this._dirHandler, this);
+			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.RIGHT, this._dirHandler, this);
+			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.DOWN, this._dirHandler, this);
+			this.btn_jian.removeEventListener(lxl.CEvent.CLICK, this._jianshiHandler, this);
+			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.READONLY_CHANGE, this.readOnlyChange, this);
+		}
+
 		private startGame() {
 			Snake.createSnake();
 			Snake.genTargets();
@@ -132,12 +156,13 @@ module app {
 					for(let i = 0; i < this.arrTargets.length; i++) {
 						this.removeChild(this.arrTargets[i]);
 					}
-					this.startGame();
-					lxl.CDispatcher.getInstance().addListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
-					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.LEFT, this._dirHandler, this);
-					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.UP, this._dirHandler, this);
-					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.RIGHT, this._dirHandler, this);
-					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.DOWN, this._dirHandler, this);
+					this.dispose();
+					// this.startGame();
+					// lxl.CDispatcher.getInstance().addListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
+					// lxl.CDispatcher.getInstance().addListener(lxl.CEvent.LEFT, this._dirHandler, this);
+					// lxl.CDispatcher.getInstance().addListener(lxl.CEvent.UP, this._dirHandler, this);
+					// lxl.CDispatcher.getInstance().addListener(lxl.CEvent.RIGHT, this._dirHandler, this);
+					// lxl.CDispatcher.getInstance().addListener(lxl.CEvent.DOWN, this._dirHandler, this);
 				}
 			}
 		}
@@ -220,6 +245,7 @@ module app {
 				this.removeChild(Snake.arrTargets[i]);
 			Snake.viewData.gridMap = [];
 			Snake.viewData.gridSnake = [];
+			Snake.viewData.curString = "";
 			this.moveDistance = "right";
 			this.lab_value.text = "";
 			this.lab_target.text = "";
@@ -233,24 +259,7 @@ module app {
 			this._timer.start();
 		}
 
-		dispose() {
-			super.dispose();
-			this.btn_up.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
-			this.btn_down.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
-			this.btn_left.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
-			this.btn_right.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
-			this.btn_help.removeEventListener(lxl.CEvent.CLICK, this._helpHandler, this);
-			this.btn_knowledge.removeEventListener(lxl.CEvent.CLICK, this._knowledgeHandler, this);
-			this._timer.stop();
-			if(this._timer.hasEventListener(egret.TimerEvent.TIMER))
-				this._timer.removeEventListener(egret.TimerEvent.TIMER, this.viewUpdate, this);
-			lxl.CDispatcher.getInstance().removeListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
-			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.LEFT, this._dirHandler, this);
-			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.UP, this._dirHandler, this);
-			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.RIGHT, this._dirHandler, this);
-			lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.DOWN, this._dirHandler, this);
-			this.btn_jian.removeEventListener(lxl.CEvent.CLICK, this._jianshiHandler, this);
-		}
+		
 
 		private _jianshiHandler(e:lxl.CEvent) {
 			this.dispatchEvent(new lxl.CEvent(lxl.CEvent.OPEN));
@@ -414,6 +423,8 @@ module app {
 				this.speed = Math.floor(this.score / 10);
 			}
 			if(Snake.arrSnakeParts.length == 0) {
+				Snake.viewData.snakeDir = this.moveDistance;
+				Snake.dataHandler.sendMessageToServer(Snake.viewData);
 				this._showWin();
 				return;
 			}
