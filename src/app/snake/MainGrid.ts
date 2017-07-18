@@ -408,6 +408,9 @@ module app {
 					this.lab_value.text += target.value;
 					Snake.viewData.curString = this.lab_value.text;
 					this.removeChild(target);
+					Snake.viewData.snakeDir = this.moveDistance;
+					Snake.viewData.curString = this.lab_value.text;
+					Snake.dataHandler.sendMessageToServer(Snake.viewData);
 				});
 		}
 
@@ -423,8 +426,6 @@ module app {
 				this.speed = Math.floor(this.score / 10);
 			}
 			if(Snake.arrSnakeParts.length == 0) {
-				Snake.viewData.snakeDir = this.moveDistance;
-				Snake.dataHandler.sendMessageToServer(Snake.viewData);
 				this._showWin();
 				return;
 			}

@@ -4,7 +4,8 @@ module app {
 		}
 
 		public sendMessageToServer(vd:ViewData) {
-			let o:Object = {action:'publicMessage', data:vd};
+			let tempvd = lxl.Tool.copyObject(vd);
+			let o:Object = {action:'publicMessage', data:tempvd};
 			lxl.Tool.callJS("sendMsg", o);
 		}
 
