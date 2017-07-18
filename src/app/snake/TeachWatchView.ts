@@ -102,7 +102,7 @@ module app {
 		}
 
 		private createTargets(arr:Array<GridMap>, isUpdate:boolean) {
-			if(isUpdate == true) {
+			// if(isUpdate == true) {
 				for(let i = 0; i < this.arrTargets.length; i++) {
 					this.g.removeChild(this.arrTargets[i]);
 				}
@@ -118,16 +118,16 @@ module app {
 				for(let i = 0; i < this.arrTargets.length; i++) {
 					this.g.addChild(this.arrTargets[i]);
 				}
-			} else {
-				for(let i = 0; i < this.arrTargets.length; i++) {
-					for(let j = 0; j < arr.length; j++) {
-						if(this.arrTargets[i].value == arr[j].value && this.arrTargets[i].vd.loc_x == arr[j].loc_x && this.arrTargets[i].vd.loc_y == arr[j].loc_y) {
-							this.g.removeChild(this.arrTargets[i]);
-							return;
-						}
-					}
-				}
-			}
+			// } else {
+				// for(let i = 0; i < this.arrTargets.length; i++) {
+				// 	for(let j = 0; j < arr.length; j++) {
+				// 		if(this.arrTargets[i].value == arr[j].value && this.arrTargets[i].vd.loc_x == arr[j].loc_x && this.arrTargets[i].vd.loc_y == arr[j].loc_y) {
+				// 			this.g.removeChild(this.arrTargets[i]);
+				// 			return;
+				// 		}
+				// 	}
+				// }
+			// }
 		}
 
 		dispose() {

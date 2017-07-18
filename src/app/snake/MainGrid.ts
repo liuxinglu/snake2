@@ -59,15 +59,24 @@ module app {
 			} else {
 				
 				this.btn_jian.visible = false;
-				lxl.CDispatcher.getInstance().addListener(lxl.CEvent.GET_MESSAGE, this._updateData, this);
-				lxl.CDispatcher.getInstance().removeListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
-				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.LEFT, this._dirHandler, this);
-				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.UP, this._dirHandler, this);
-				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.RIGHT, this._dirHandler, this);
-				lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.DOWN, this._dirHandler, this);
+				
+				this.group.touchChildren = !Snake.readOnly;
+				this.group.touchEnabled = !Snake.readOnly;
+				if(Snake.readOnly == false) {
+					this.startGame();
+				}else {
+					lxl.CDispatcher.getInstance().addListener(lxl.CEvent.GET_MESSAGE, this._updateData, this);
+					lxl.CDispatcher.getInstance().removeListener(SnakeManager.CHANGE_LIFE, this.changeLife, this);
+					lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.LEFT, this._dirHandler, this);
+					lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.UP, this._dirHandler, this);
+					lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.RIGHT, this._dirHandler, this);
+					lxl.CDispatcher.getInstance().removeListener(lxl.CEvent.DOWN, this._dirHandler, this);
+					this.btn_up.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+					this.btn_down.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+					this.btn_left.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+					this.btn_right.removeEventListener(lxl.CEvent.CLICK, this._directionHandler, this);
+				}
 			}
-			this.group.touchChildren = !Snake.readOnly;
-			this.group.touchEnabled = !Snake.readOnly;
 			
 		}
 
@@ -209,6 +218,8 @@ module app {
 				this.removeChild(Snake.arrSnakeParts[i]);
 			for(let i = Snake.arrTargets.length - 1; i >= 0; i--)
 				this.removeChild(Snake.arrTargets[i]);
+			Snake.viewData.gridMap = [];
+			Snake.viewData.gridSnake = [];
 			this.moveDistance = "right";
 			this.lab_value.text = "";
 			this.lab_target.text = "";
