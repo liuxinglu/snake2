@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="SnakeTarget" width="48" height="48" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group left="0" right="0" top="0" bottom="0">
+		<e:Image source="img_duMoGu_png" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0"/>
+		<e:BitmapLabel font="num1_fnt" text="" horizontalCenter="0" verticalCenter="0" visible="false"/>
+		<e:Label id="lab_num" text="0" x="1" y="13" size="23" textAlign="center" anchorOffsetX="0" width="42" textColor="0x00bde0" bold="true" stroke="1"/>
+	</e:Group>
+</e:Skin>

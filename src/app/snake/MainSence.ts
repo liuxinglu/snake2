@@ -20,6 +20,7 @@ module app {
 			let info = lxl.Tool.callJS("getInfoToken");
 			if(info._userRole == "COORDINATOR") {
 				Snake.viewData.type = "showFrist";
+				Snake.viewData.gameIndex = 1;
 				Snake.dataHandler.sendMessageToServer(Snake.viewData);
 			}
 		}

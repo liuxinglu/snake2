@@ -26,6 +26,7 @@ module app {
 		}
 
 		type:string = "";//show normal
+		gameIndex:number = 0;
 		userName:string = "";
 		completeNum:number = 0;
 		totalNum:number = 0;

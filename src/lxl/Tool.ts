@@ -73,5 +73,13 @@ module lxl {
 			}
 			return a;
 		}
+
+		static objectToArray(obj:Object):Array<any> {
+			let arr = [];
+			for(var i in obj) {
+				arr.push(obj[i]);
+			}
+			return arr;
+		}
 	}
 }
